@@ -1,5 +1,13 @@
 #include "get_next_line.h"
 
+size_t ft_strlen(const char *s)
+{
+	size_t i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
+
 static char	*copy(char *new, char *s1, char *s2)
 {
 	int	i;
@@ -70,6 +78,9 @@ char *ft_read_and_append(int fd, char *st_buffer, char *buffer)
 char *ft_copy_until_new_line(char *st_buffer, char *line)
 {
     int i = 0;
+	line = malloc(ft_strlen(st_buffer) + 1);
+	if (line == NULL)
+		return (NULL);	
     while (st_buffer[i] && st_buffer[i] != '\n')
     {
         line[i] = st_buffer[i];

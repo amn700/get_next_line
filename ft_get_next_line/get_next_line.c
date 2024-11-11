@@ -6,6 +6,8 @@ char * get_next_line(int fd)
     char           *line = NULL;
     char           *buffer = NULL;
 
+    if (fd < 0 || read(fd, NULL, 0) <= 0 || BUFFER_SIZE <= 0)
+		return NULL;
     buffer = malloc(BUFFER_SIZE + 1);
     if (buffer == NULL)
         return (NULL);
@@ -14,6 +16,7 @@ char * get_next_line(int fd)
         return (NULL);
     line = ft_copy_until_new_line(st_buffer, line);
     
-	st_buffer = ft_copy_after_newline();
+	// st_buffer = ft_copy_after_newline();
+
     return (line);
 }

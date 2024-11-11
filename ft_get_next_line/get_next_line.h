@@ -6,9 +6,9 @@
 #include <fcntl.h>
 #include <stdio.h>
 
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 32
 
-char * get_next_line(int fd);
-char * ft_read_and_append(int fd, char *st_buffer, char *buffer);
-char *copy_until_new_line(char *st_buffer, char *line);
+char *get_next_line(int fd);
+char *ft_read_and_append(int fd, char *st_buffer, char *buffer);
+char *ft_copy_until_new_line(char *st_buffer, char *line);
 #endif
