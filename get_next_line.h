@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mohchaib <mohchaib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 18:08:04 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/30 18:12:29 by marvin           ###   ########.fr       */
+/*   Updated: 2024/12/11 02:17:10 by mohchaib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-// # define BUFFER_SIZE 10
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 1
+#endif
 
 char	*get_next_line(int fd);
 char	*ft_read_and_append(int fd, char *st_buffer, char *buffer);
