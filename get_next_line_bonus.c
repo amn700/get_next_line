@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mohchaib <mohchaib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 16:58:55 by marvin            #+#    #+#             */
-/*   Updated: 2024/12/22 05:50:06 by mohchaib         ###   ########.fr       */
+/*   Updated: 2024/12/22 05:50:02 by mohchaib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_read_and_append(int fd, char *st_buffer, char *buffer)
 {
@@ -94,23 +94,25 @@ char	*ft_copy_after_newline(char *st_buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*st_buffer;
+	static char	*st_buffer[OPEN_MAX];
 	char		*buffer;
 	char		*line;
 
 	line = NULL;
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-		return (free(st_buffer), st_buffer = NULL, NULL);
+	if (fd < 0)
+		return (NULL);
+	if (BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+		return (free(st_buffer[fd]), st_buffer[fd] = NULL, NULL);
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer)
-		return (free(st_buffer), st_buffer = NULL, NULL);
-	st_buffer = ft_read_and_append(fd, st_buffer, buffer);
+		return (free(st_buffer[fd]), st_buffer[fd] = NULL, NULL);
+	st_buffer[fd] = ft_read_and_append(fd, st_buffer[fd], buffer);
 	free(buffer);
-	if (!st_buffer)
-		return (free(st_buffer), st_buffer = NULL, NULL);
-	line = ft_copy_until_new_line(st_buffer, line);
+	if (!st_buffer[fd])
+		return (free(st_buffer[fd]), st_buffer[fd] = NULL, NULL);
+	line = ft_copy_until_new_line(st_buffer[fd], line);
 	if (!line)
-		return (free(st_buffer), st_buffer = NULL, NULL);
-	st_buffer = ft_copy_after_newline(st_buffer);
+		return (free(st_buffer[fd]), st_buffer[fd] = NULL, NULL);
+	st_buffer[fd] = ft_copy_after_newline(st_buffer[fd]);
 	return (line);
 }
